@@ -1,0 +1,48 @@
+# Конфигурация конвейера обработки ЭЭГ-данных
+project:
+  name: "EEG_Sternberg_Connectivity"
+  version: "0.1.0"
+
+data:
+  # Путь к папке с данными (скрипт сам найдет внутри нужные файлы)
+  dataset_dir: "v1" 
+  sfreq: 500 # Исправлено на реальную частоту датасета
+  
+preprocessing:
+  l_freq: 1.0     # Нижняя частота фильтра (Гц)
+  h_freq: 40.0    # Верхняя частота фильтра (Гц)
+  # Длительность эпохи в секундах (относительно предъявления стимула)
+  tmin: -0.2      # За 200 мс до стимула
+  tmax: 1.2       # 1200 мс после стимула (для корректного расчета тета-ритма)
+  reject_uv: 150  # Порог отбраковки артефактов (мкВ)
+
+conditions:
+  # Маппинг: как читать сырые триггеры
+  target_events:
+    "load_5_retention":
+      load: 5
+      task: "0"
+    "load_5_manipulation":
+      load: 5
+      task: "1"
+    "load_6_retention":
+      load: 6
+      task: "0"
+    "load_6_manipulation":
+      load: 6
+      task: "1"
+    "load_7_retention":
+      load: 7
+      task: "0"
+    "load_7_manipulation":
+      load: 7
+      task: "1"
+
+connectivity:
+  fmin: 4.0
+  fmax: 8.0
+  method: "wpli" 
+
+graph:
+  use_mst: True
+  
