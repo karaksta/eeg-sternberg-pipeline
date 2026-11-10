@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  eeg_pipeline:
+    build: .
+    volumes:
+      # Монтируем папку с данными и результатами, чтобы они сохранялись на компьютере
+      - ./v1:/app/v1
+      - ./results:/app/results
+      - ./configs:/app/configs
+    command: python scripts/run_all.py
+    
